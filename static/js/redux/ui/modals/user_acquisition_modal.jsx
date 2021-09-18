@@ -116,6 +116,23 @@ class UserAcquisitionModal extends React.Component {
             </span>
             <span>Continue with Google</span>
           </button>
+          <button
+            className="btn abnb-btn secondary" onClick={() => {
+              const link = document.createElement('a');
+              link.href = '/press'
+              document.body.appendChild(link);
+              link.click();
+            }}
+          >
+            <span className="img-icon">
+              <img
+                alt="Google"
+                className="google-logo"
+                src="https://a0.muscache.com/airbnb/static/signinup/google_icon_2x-745c2280e5004d4c90e3ca4e60e3f677.png"
+              />
+            </span>
+            <span>Robert's Mock Button</span>
+          </button>
 
 
           {/* <button
