@@ -17,11 +17,11 @@ import Calendar from '../calendar';
 import { saveTimetable } from '../../actions/user_actions';
 import { handleCreateNewTimetable } from '../../actions/timetable_actions';
 import {
-    createICalFromTimetable,
-    fetchShareTimetableLink,
-    fetchSISTimetableData,
+  createICalFromTimetable,
+  fetchShareTimetableLink,
+  fetchSISTimetableData,
 } from '../../actions/calendar_actions';
-import { togglePreferenceModal, triggerSaveCalendarModal } from '../../actions/modal_actions';
+import { toggleMockModal, togglePreferenceModal, triggerSaveCalendarModal } from '../../actions/modal_actions';
 import { getMaxEndHour } from '../../reducers/root_reducer';
 
 const mapStateToProps = (state) => {
@@ -41,11 +41,12 @@ const mapStateToProps = (state) => {
 };
 
 const CalendarContainer = connect(
-    mapStateToProps,
+  mapStateToProps,
   {
     saveTimetable,
     fetchShareTimetableLink,
     togglePreferenceModal,
+    toggleMockModal,
     triggerSaveCalendarModal,
     createICalFromTimetable,
     handleCreateNewTimetable,

@@ -28,6 +28,7 @@ import SideBarContainer from './containers/side_bar_container';
 import UserSettingsModalContainer from './containers/modals/user_settings_modal_container';
 import ExplorationModalContainer from './containers/modals/exploration_modal_container';
 import SignupModalContainer from './containers/modals/signup_modal_container';
+import MockModalContainer from './containers/modals/mock_modal_container';
 import PreferenceModalContainer from './containers/modals/preference_modal_container';
 import TutModalContainer from './containers/modals/tut_modal_container';
 import PeerModalContainer from './containers/modals/peer_modal_container';
@@ -168,6 +169,7 @@ class Semesterly extends React.Component {
         <UserSettingsModalContainer />
         <ExplorationModalContainer />
         <SignupModalContainer />
+        <MockModalContainer />
         <PreferenceModalContainer />
         <IntegrationModalContainer />
         <TutModalContainer />
@@ -184,7 +186,7 @@ class Semesterly extends React.Component {
             {cal}
             <footer className="footer navbar no-print">
               <p className="data-last-updated no-print">Data last
-                updated: { this.props.dataLastUpdated && this.props.dataLastUpdated.length && this.props.dataLastUpdated !== 'null' ? this.toLocalDate() : null }</p>
+                updated: {this.props.dataLastUpdated && this.props.dataLastUpdated.length && this.props.dataLastUpdated !== 'null' ? this.toLocalDate() : null}</p>
               <ul className="nav nav-pills no-print">
                 <li className="footer-button" role="presentation">
                   <a href="/termsofservice">Terms</a>
@@ -211,7 +213,7 @@ class Semesterly extends React.Component {
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://discord.gg/txYbphsAV7"
-                    // TODO: add discord logo correctly
+                  // TODO: add discord logo correctly
                   >
                     <i className="fab fa-discord" />
                     Forum
