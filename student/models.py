@@ -187,6 +187,7 @@ class PilotOffering(models.Model):
 
 
 class Mock(models.Model):
+    students = models.ManyToManyField(Student)
     isMock = models.NullBooleanField(null=True, default=True)
     name = models.CharField(max_length=100, null=True)
     lifespan = models.IntegerField(default=0)
