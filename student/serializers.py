@@ -80,7 +80,7 @@ class MockSerializer(serializers.ModelSerializer):
     class Meta:
         model = Mock
         fields = (
-            'isMock',
-            'name',
-            'lifespan'
+            'num1',
+            'num2',
+            'num3'
         )
