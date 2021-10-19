@@ -41,6 +41,7 @@ class ExplorationModal extends React.Component {
       addedDays: [],
       shareLinkShown: false,
       hasUpdatedCourses: false,
+      selected: undefined
     };
     this.toggle = this.toggle.bind(this);
     this.fetchAdvancedSearchResults = this.fetchAdvancedSearchResults.bind(this);
@@ -255,8 +256,11 @@ class ExplorationModal extends React.Component {
     const numSearchResults = advancedSearchResults.length > 0 ?
       <p>returned { advancedSearchResults.length } Search Results</p> : null;
     const searchResults = advancedSearchResults.map((c, i) => (<ExplorationSearchResult
-      key={c.id} code={c.code} name={c.name}
-      onClick={() => this.props.setAdvancedSearchResultIndex(i, c.id)}
+      key={c.id} code={c.code} name={c.name} isSelected={this.state.selected === c.code}
+      onClick={() => {
+        this.props.setAdvancedSearchResultIndex(i, c.id);
+        this.setState({selected: c.code});
+      }}
     />));
     let courseModal = null;
     if (active >= 0 && active < advancedSearchResults.length) {
@@ -441,10 +445,10 @@ class ExplorationModal extends React.Component {
   }
 }
 
-const ExplorationSearchResult = ({ name, code, onClick }) => (
-  <div className="exp-s-result" onClick={onClick}>
-    <h4>{ name } </h4>
-    <h5> { code }</h5>
+const ExplorationSearchResult = ({ name, code, onClick, isSelected }) => (
+  <div className="exp-s-result" onClick={onClick} style={{backgroundColor: isSelected ? "#eeeeee" : undefined}}>
+    <h4>{ name }</h4>
+    <h5>{ code }</h5>
   </div>
 );
 

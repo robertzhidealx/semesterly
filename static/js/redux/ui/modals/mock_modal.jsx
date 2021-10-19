@@ -7,7 +7,6 @@ class MockModal extends React.Component {
     if (this.props.isVisible) {
       this.modal.show();
     }
-    console.log(this.props.userInfo)
   }
 
 
@@ -39,9 +38,9 @@ class MockModal extends React.Component {
           <div>First Name: {this.props.userInfo.userFirstName}</div>
           <div>Last Name: {this.props.userInfo.userLastName}</div>
           <div>Graduating class: {this.props.userInfo.class_year}</div>
-          <div>num1: {this.props.userInfo.mock.num1}</div>
+          {/* <div>num1: {this.props.userInfo.mock.num1}</div>
           <div>num2: {this.props.userInfo.mock}</div>
-          <div>num3: {this.props.userInfo.mock.num2}</div>
+          <div>num3: {this.props.userInfo.mock.num2}</div> */}
         </div>
       </Modal>
     );
