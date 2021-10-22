@@ -93,10 +93,10 @@ class Calendar extends React.Component {
   getTimelineStyle() {
     const now = new Date();
     if (now.getHours() > this.props.endHour ||  // if the current time is before
-        now.getHours() < 8 ||// 8am or after the schedule end
-        now.getDay() === 0 || // time or if the current day is
-        now.getDay() === 6    // Saturday or Sunday, then
-        ) { // display no line
+      now.getHours() < 8 ||// 8am or after the schedule end
+      now.getDay() === 0 || // time or if the current day is
+      now.getDay() === 6    // Saturday or Sunday, then
+    ) { // display no line
       return { display: 'none' };
     }
     const diff = Math.abs(new Date() - new Date().setHours(8, 0, 0));
@@ -199,8 +199,8 @@ class Calendar extends React.Component {
         >
           <i
             className={classnames('fa',
-                            { 'fa-share-alt': !this.props.isFetchingShareLink },
-                            { 'fa-spin fa-circle-o-notch': this.props.isFetchingShareLink })}
+              { 'fa-share-alt': !this.props.isFetchingShareLink },
+              { 'fa-spin fa-circle-o-notch': this.props.isFetchingShareLink })}
             onClick={this.showShareLink}
           />
         </button>
@@ -214,15 +214,15 @@ class Calendar extends React.Component {
           <span>Share Calendar</span>
         </ReactTooltip>
       </div>
-        );
+    );
     const shareLink = this.state.shareLinkShown ?
-            (<ShareLink
-              link={this.props.shareLink}
-              uniqueId="timetable"
-              type="Calendar"
-              onClickOut={this.hideShareLink}
-            />) :
-            null;
+      (<ShareLink
+        link={this.props.shareLink}
+        uniqueId="timetable"
+        type="Calendar"
+        onClickOut={this.hideShareLink}
+      />) :
+      null;
     const addButton = (
       <div className="cal-btn-wrapper">
         <button
@@ -243,7 +243,7 @@ class Calendar extends React.Component {
           <span>New Timetable</span>
         </ReactTooltip>
       </div>
-        );
+    );
     const addCustomEventButton = (
       <div className="cal-btn-wrapper">
         <button
@@ -264,7 +264,7 @@ class Calendar extends React.Component {
           <span>Add Custom Event</span>
         </ReactTooltip>
       </div>
-        );
+    );
     const saveToCalendarButton = (
       <div className="cal-btn-wrapper">
         <button
@@ -285,7 +285,7 @@ class Calendar extends React.Component {
           <span>Save to Calendar</span>
         </ReactTooltip>
       </div>
-        );
+    );
     const preferenceButton = (
       <div className="cal-btn-wrapper">
         <button
@@ -306,7 +306,7 @@ class Calendar extends React.Component {
           <span>Preferences</span>
         </ReactTooltip>
       </div>
-        );
+    );
 
 
     const pilotButton = (
@@ -331,24 +331,48 @@ class Calendar extends React.Component {
 
     const pilot = this.props.userInfo.isLoggedIn ? pilotButton : pilotLogIn;
 
+    const starButton = (
+      <div className="cal-btn-wrapper">
+        <button
+          onClick={this.props.toggleMockModal}
+          className="save-timetable"
+          data-tip
+          data-for="star-btn-tooltip"
+        >
+          <img src="/static/img/star.png" alt="star" style={{ marginTop: '2px' }} />
+        </button>
+        <ReactTooltip
+          id="star-btn-tooltip"
+          class="tooltip"
+          type="dark"
+          place="bottom"
+          effect="solid"
+        >
+          <span>Mock Modal</span>
+        </ReactTooltip>
+      </div>
+    );
+
+
     return (
       <div className={classnames('calendar fc fc-ltr fc-unthemed week-calendar',
         { hoverCustomSlot: this.state.hoverCustomSlot })}
       >
         <div className="fc-toolbar no-print">
           <div className="fc-left" style={{ display: 'none' }}>
-            { !this.state.hoverCustomSlot ? <PaginationContainer /> : null }
-            { description }
-            { pilot }
+            {!this.state.hoverCustomSlot ? <PaginationContainer /> : null}
+            {description}
+            {pilot}
           </div>
           <div className="fc-right">
-            { addSISButton }
-            { addCustomEventButton }
-            { shareButton }
-            { shareLink }
-            { addButton }
-            { saveToCalendarButton }
-            { preferenceButton }
+            {starButton}
+            {addSISButton}
+            {addCustomEventButton}
+            {shareButton}
+            {shareLink}
+            {addButton}
+            {saveToCalendarButton}
+            {preferenceButton}
           </div>
           <div className="fc-center" />
           <div className="fc-clear" />
@@ -370,19 +394,19 @@ class Calendar extends React.Component {
                               style={{ width: 49 }}
                             />
                             <th className="fc-day-header fc-widget-header fc-mon">
-                                                    Mon
+                              Mon
                             </th>
                             <th className="fc-day-header fc-widget-header fc-tue">
-                                                    Tue
+                              Tue
                             </th>
                             <th className="fc-day-header fc-widget-header fc-wed">
-                                                    Wed
+                              Wed
                             </th>
                             <th className="fc-day-header fc-widget-header fc-thu">
-                                                    Thu
+                              Thu
                             </th>
                             <th className="fc-day-header fc-widget-header fc-fri">
-                                                    Fri
+                              Fri
                             </th>
                           </tr>
                         </thead>

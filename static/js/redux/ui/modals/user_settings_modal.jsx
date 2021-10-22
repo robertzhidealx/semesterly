@@ -94,9 +94,9 @@ class UserSettingsModal extends React.Component {
 
   shouldShow(props) {
     return props.userInfo.isLoggedIn && (!props.hideOverrided && (
-        props.showOverrided ||
-        this.props.isUserInfoIncomplete)
-      );
+      props.showOverrided ||
+      this.props.isUserInfoIncomplete)
+    );
   }
 
   hide() {
@@ -176,8 +176,8 @@ class UserSettingsModal extends React.Component {
           <div className="preference-wrapper">
             <h3>Would you like to find classes with friends?</h3>
             <p className="disclaimer">See which Facebook friends will be your
-                            classmates! Only friends in
-                            your course will see your name.</p>
+              classmates! Only friends in
+              your course will see your name.</p>
           </div>
         </div>
         <div className="preference cf">
@@ -194,8 +194,8 @@ class UserSettingsModal extends React.Component {
           <div className="preference-wrapper">
             <h3>Would you like to find sections with friends?</h3>
             <p className="disclaimer">See which Facebook friends will be in your
-                            section! Only friends in
-                            your section will see your name.</p>
+              section! Only friends in
+              your section will see your name.</p>
           </div>
         </div>
         <div className="preference cf">
@@ -212,37 +212,37 @@ class UserSettingsModal extends React.Component {
           <div className="preference-wrapper">
             <h3>Find new friends in your classes!</h3>
             <p className="disclaimer">Find your peers for this semester. All students in
-                            your courses will
-                            be able to view your name and public Facebook profile.</p>
+              your courses will
+              be able to view your name and public Facebook profile.</p>
           </div>
         </div>
       </div>
-        );
+    );
     const fbUpsell = this.props.userInfo.isLoggedIn
       && !this.props.userInfo.FacebookSignedUp ? (
-        <div
-          className={classnames('preference welcome-modal__notifications second cf',
-            { 'preference-attn': this.props.highlightNotifs })}
+      <div
+        className={classnames('preference welcome-modal__notifications second cf',
+          { 'preference-attn': this.props.highlightNotifs })}
+      >
+        <button
+          className="btn abnb-btn fb-btn" onClick={() => {
+            const link = document.createElement('a');
+            link.href = `/login/facebook?student_token=${this.props.userInfo.LoginToken}&login_hash=${this.props.userInfo.LoginHash}`;
+            document.body.appendChild(link);
+            link.click();
+          }}
         >
-          <button
-            className="btn abnb-btn fb-btn" onClick={() => {
-              const link = document.createElement('a');
-              link.href = `/login/facebook?student_token=${this.props.userInfo.LoginToken}&login_hash=${this.props.userInfo.LoginHash}`;
-              document.body.appendChild(link);
-              link.click();
-            }}
-          >
-            <span className="img-icon">
-              <i className="fa fa-facebook" />
-            </span>
-            <span>Continue with Facebook</span>
-          </button>
-          <p className="disclaimer ctr">Connecting your Facebook allows you to see which of
-                    your Facebook friends
-                    are in your classes! Only friends in your course will see your name – your
-                    information is never
-                    shared with any other party.</p>
-        </div>) : null;
+          <span className="img-icon">
+            <i className="fa fa-facebook" />
+          </span>
+          <span>Continue with Facebook</span>
+        </button>
+        <p className="disclaimer ctr">Connecting your Facebook allows you to see which of
+          your Facebook friends
+          are in your classes! Only friends in your course will see your name – your
+          information is never
+          shared with any other party.</p>
+      </div>) : null;
     const cancelButton = (<div
       className="modal-close"
       onClick={this.hide}
@@ -284,7 +284,7 @@ class UserSettingsModal extends React.Component {
           <div className="modal-header">
             <div className="pro-pic" style={{ backgroundImage: `url(${this.props.userInfo.img_url})` }} />
             <h1>Welcome!</h1>
-            { !this.state.isSigningUp ? cancelButton : null }
+            {!this.state.isSigningUp ? cancelButton : null}
           </div>
           <div className="modal-body">
             <div className="preference cf">
@@ -303,23 +303,26 @@ class UserSettingsModal extends React.Component {
                 name="form-field-name"
                 value={this.props.userInfo.class_year}
                 options={[
-                                    { value: 2021, label: 2021 },
-                                    { value: 2022, label: 2022 },
-                                    { value: 2023, label: 2023 },
-                                    { value: 2024, label: 2024 },
-                                    { value: 2025, label: 2025 },
-                                    { value: 2026, label: 2026 },
-                                    { value: 2027, label: 2027 },
+                  { value: 2021, label: 2021 },
+                  { value: 2022, label: 2022 },
+                  { value: 2023, label: 2023 },
+                  { value: 2024, label: 2024 },
+                  { value: 2025, label: 2025 },
+                  { value: 2026, label: 2026 },
+                  { value: 2027, label: 2027 },
                 ]}
                 searchable
                 onChange={this.changeClassYear}
               />
             </div>
-            { preferences }
+            <div className='preference cf'>
+              <h3>This is your favorite number: {this.props.userInfo.favorite_num}</h3>
+            </div>
+            {preferences}
             {/* { !this.state.isSigningUp ? notifications : null } */}
-            { fbUpsell }
-            { tos }
-            { !this.state.isSigningUp ? deleteDropdown : null }
+            {fbUpsell}
+            {tos}
+            {!this.state.isSigningUp ? deleteDropdown : null}
             <div className="button-wrapper">
               <button
                 className="signup-button" onClick={this.hide}
