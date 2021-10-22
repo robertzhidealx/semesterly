@@ -41,7 +41,8 @@ class ExplorationModal extends React.Component {
       addedDays: [],
       shareLinkShown: false,
       hasUpdatedCourses: false,
-      selected: undefined
+      selected: undefined,
+      didSearch: false
     };
     this.toggle = this.toggle.bind(this);
     this.fetchAdvancedSearchResults = this.fetchAdvancedSearchResults.bind(this);
@@ -129,12 +130,15 @@ class ExplorationModal extends React.Component {
     }
     const query = this.input.value;
     const { areas, departments, times, levels } = filters;
+    this.setState({didSearch: false});
     this.props.fetchAdvancedSearchResults(query, {
       areas,
       departments,
       times,
       levels,
     });
+    if (query) this.setState({didSearch: true});
+    else this.setState({didSearch: false});
   }
 
   fetchAdvancedSearchResultsWrapper() {
@@ -281,14 +285,14 @@ class ExplorationModal extends React.Component {
             </div>
             { shareLink }
             {
-                          inRoster ? null :
-                          <div
-                            className="modal-save"
-                            onClick={() => this.addOrRemoveOptionalCourse(selectedCourse)}
-                          >
-                            <i className="fa fa-bookmark" />
-                          </div>
-                      }
+              inRoster ? null :
+              <div
+                className="modal-save"
+                onClick={() => this.addOrRemoveOptionalCourse(selectedCourse)}
+              >
+                <i className="fa fa-bookmark" />
+              </div>
+            }
             <div className="modal-add" onClick={() => this.addOrRemoveCourse(selectedCourse.id)}>
               <i
                 className={classNames('fa', {
@@ -312,42 +316,40 @@ class ExplorationModal extends React.Component {
     }
     const filterTypes = ['departments', 'areas', 'levels'];
     const filters = filterTypes.map(filterType => (
-            this.props[filterType].length === 0 ? null :
-            <Filter
-              results={this.props[filterType]}
-              key={filterType} filterType={filterType}
-              add={this.addFilter} show={this.state[`show_${filterType}`]}
-              isFiltered={this.isFiltered}
-              isFetching={this.props.isFetching}
-              onClickOut={this.hideAll}
-              schoolSpecificInfo={this.props.schoolSpecificInfo}
-            />
-        ));
+      this.props[filterType].length === 0 ? null :
+      <Filter
+        results={this.props[filterType]}
+        key={filterType} filterType={filterType}
+        add={this.addFilter} show={this.state[`show_${filterType}`]}
+        isFiltered={this.isFiltered}
+        isFetching={this.props.isFetching}
+        onClickOut={this.hideAll}
+        schoolSpecificInfo={this.props.schoolSpecificInfo}
+      />
+    ));
     const selectedFilterSections = filterTypes.map((filterType) => {
       if (this.props[filterType].length === 0) {
         return null;
       }
       const availableFilters = this.props[filterType];
-            // sort selected filters according to the order in which they were received from props
+      // sort selected filters according to the order in which they were received from props
       const sortedFilters = this.state[filterType].concat().sort((a, b) => (
-                availableFilters.indexOf(a) - availableFilters.indexOf(b)
-            ));
+        availableFilters.indexOf(a) - availableFilters.indexOf(b)
+      ));
       const selectedItems = sortedFilters.map(name => (
         <SelectedFilter
           key={name} name={name}
           remove={() => this.removeFilter(filterType, name)}
         />
-            ));
+      ));
       const name = this.props.schoolSpecificInfo[`${filterType}Name`];
 
       return (
         <SelectedFilterSection
-          key={filterType} name={name}
+          key={filterType} name={name} type={filterType}
           toggle={this.toggle(filterType)}
         >
-
           {selectedItems}
-
         </SelectedFilterSection>
       );
     });
@@ -364,8 +366,7 @@ class ExplorationModal extends React.Component {
         remove={this.removeTimeFilter}
       />);
     });
-    const explorationLoader = this.props.isFetching ?
-      <i className="fa fa-spin fa-refresh" /> : null;
+    const explorationLoader = <i className="fa fa-spin fa-refresh" />;
     const content = (
       <div className={classNames('exploration-content', { loading: this.props.isFetching })}>
         <div
@@ -384,8 +385,7 @@ class ExplorationModal extends React.Component {
               onInput={() => {
                 this.props.clearPagination();
                 this.fetchAdvancedSearchResultsWrapper();
-              }
-                            }
+              }}
             />
           </div>
           <div
@@ -399,18 +399,26 @@ class ExplorationModal extends React.Component {
           <div className="col-4-16 exp-filters">
             { selectedFilterSections }
             <SelectedFilterSection
-              key={'times'} name={'Day/Times'}
+              key={'times'} name={'Day/Times'} type={'times'}
               toggle={this.toggle('times')}
             >
               {timeFilters}
-
             </SelectedFilterSection>
           </div>
           <div className="col-5-16 exp-search-results">
-            <div id="exp-search-list">
+            <div id="exp-search-list" style={{height: "100%"}}>
               { numSearchResults }
-              { searchResults }
-              {explorationLoader}
+              { this.state.didSearch && (searchResults.length ? searchResults : <p>No courses have been found</p>)}
+              {this.props.isFetching
+                ? <div style={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center"
+                }}>
+                { explorationLoader }
+              </div> : null}
             </div>
           </div>
           { filters }
@@ -424,11 +432,11 @@ class ExplorationModal extends React.Component {
             schoolSpecificInfo={this.props.schoolSpecificInfo}
           />
           {
-                        this.props.isFetching && this.props.page === 1 ? null :
-                        <div className="col-7-16 exp-modal">
-                          { courseModal }
-                        </div>
-                    }
+            this.props.isFetching && this.props.page === 1 ? null :
+            <div className="col-7-16 exp-modal">
+              { courseModal }
+            </div>
+          }
         </div>
       </div>
         );
