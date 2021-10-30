@@ -124,6 +124,9 @@
     align-items: center;
     font-size: 14px;
     width: 30px;
+    div {
+      margin-right: 2px;
+    }
   }
 
   &:first-of-type {

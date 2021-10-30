@@ -36,7 +36,7 @@ class TimeSelector extends React.Component {
         onChangeComplete={onChangeComplete}
       />
       <div className="time-selector-day">
-        <div style={{marginRight: "2px"}}>{day.slice(0, 3)}</div>
+        <div>{day.slice(0, 3)}</div>
         <i className="fa fa-times" onClick={() => remove(day)}/>
       </div>
     </div>);

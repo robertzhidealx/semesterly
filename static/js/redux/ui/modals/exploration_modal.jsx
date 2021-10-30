@@ -410,15 +410,7 @@ class ExplorationModal extends React.Component {
               { numSearchResults }
               { this.state.didSearch && (searchResults.length ? searchResults : <p>No courses have been found</p>)}
               {this.props.isFetching
-                ? <div style={{
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center"
-                }}>
-                { explorationLoader }
-              </div> : null}
+                ? <div className="exp-search-list-content">{ explorationLoader }</div> : null}
             </div>
           </div>
           { filters }
