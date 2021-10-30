@@ -101,7 +101,7 @@ export const SelectedFilter = ({ name, remove }) => (
   </div>
 );
 
-SelectedFilter.PropTypes = {
+SelectedFilter.propTypes = {
   name: PropTypes.string.isRequired,
   remove: PropTypes.func.isRequired,
 };
@@ -124,9 +124,8 @@ export const SelectedFilterSection = ({ name, toggle, children, type }) => (
   </div>
 );
 
-SelectedFilterSection.PropTypes = {
+SelectedFilterSection.propTypes = {
   name: PropTypes.string.isRequired,
   toggle: PropTypes.func.isRequired,
-  remove: PropTypes.func.isRequired,
 };
 
