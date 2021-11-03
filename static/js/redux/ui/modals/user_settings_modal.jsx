@@ -144,7 +144,7 @@ const UserSettingsModal = (props) => {
       props.setVisible();
     }
   }, [props]);
-
+  
   useEffect(() => {
     const userSettings = {
       ...props.userInfo,
