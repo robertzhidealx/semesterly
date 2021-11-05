@@ -331,29 +331,6 @@ class Calendar extends React.Component {
 
     const pilot = this.props.userInfo.isLoggedIn ? pilotButton : pilotLogIn;
 
-    const starButton = (
-      <div className="cal-btn-wrapper">
-        <button
-          onClick={this.props.toggleMockModal}
-          className="save-timetable"
-          data-tip
-          data-for="star-btn-tooltip"
-        >
-          <img src="/static/img/star.png" alt="star" style={{ marginTop: '2px' }} />
-        </button>
-        <ReactTooltip
-          id="star-btn-tooltip"
-          class="tooltip"
-          type="dark"
-          place="bottom"
-          effect="solid"
-        >
-          <span>Mock Modal</span>
-        </ReactTooltip>
-      </div>
-    );
-
-
     return (
       <div className={classnames('calendar fc fc-ltr fc-unthemed week-calendar',
         { hoverCustomSlot: this.state.hoverCustomSlot })}
@@ -365,7 +342,6 @@ class Calendar extends React.Component {
             {pilot}
           </div>
           <div className="fc-right">
-            {starButton}
             {addSISButton}
             {addCustomEventButton}
             {shareButton}

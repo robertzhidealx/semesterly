@@ -183,10 +183,3 @@ class PilotOffering(models.Model):
 
     def __unicode__(self):
         return "Course: %s, Day: %s, Time: %s - %s" % (self.course_name, self.day, self.time_start, self.time_end)
-
-
-class Mock(models.Model):
-    students = models.ManyToManyField(Student)
-    num1 = models.IntegerField(blank=True, default=0)
-    num2 = models.IntegerField(blank=True, default=0)
-    num3 = models.IntegerField(blank=True, default=0)
