@@ -331,10 +331,6 @@ class Calendar extends React.Component {
 
     const pilot = this.props.userInfo.isLoggedIn ? pilotButton : pilotLogIn;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 1e0f1830057b6ab7d8b389b4dece537b9d878b66
     return (
       <div className={classnames('calendar fc fc-ltr fc-unthemed week-calendar',
         { hoverCustomSlot: this.state.hoverCustomSlot })}

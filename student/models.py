@@ -182,8 +182,4 @@ class PilotOffering(models.Model):
         return "Course: {0}, Day: {0}, Time: {0} - {0}".format(self.course_name, self.day, self.time_start, self.time_end)
 
     def __unicode__(self):
-<<<<<<< HEAD
         return "Course: %s, Day: %s, Time: %s - %s" % (self.course_name, self.day, self.time_start, self.time_end)
-=======
-        return "Course: %s, Day: %s, Time: %s - %s" % (self.course_name, self.day, self.time_start, self.time_end)
->>>>>>> 1e0f1830057b6ab7d8b389b4dece537b9d878b66
