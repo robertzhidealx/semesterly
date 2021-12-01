@@ -85,8 +85,9 @@ class ExplorationModal extends React.Component {
       times: prevState.times,
       levels: prevState.levels,
     };
-    if (!isEqual(filters, prevFilters) && this.props.page > 1) {
-      this.props.clearPagination();
+    if (!isEqual(filters, prevFilters)) {
+      this.setState({ didSearch: true });
+      if (this.props.page > 1) this.props.clearPagination();
     }
     $('.exp-search-results').scroll(() => {
       const expSearchResultsDiv = $('.exp-search-results');
@@ -259,13 +260,15 @@ class ExplorationModal extends React.Component {
     const { advancedSearchResults, active, inRoster } = this.props;
     const numSearchResults = advancedSearchResults.length > 0 ?
       <p>returned { advancedSearchResults.length } Search Results</p> : null;
-    const searchResults = advancedSearchResults.map((c, i) => (<ExplorationSearchResult
-      key={c.id} code={c.code} name={c.name} isSelected={this.state.selected === c.code}
-      onClick={() => {
-        this.props.setAdvancedSearchResultIndex(i, c.id);
-        this.setState({selected: c.code});
-      }}
-    />));
+    const searchResults = advancedSearchResults.map((c, i) => 
+      <ExplorationSearchResult
+        key={c.id} code={c.code} name={c.name} isSelected={this.state.selected === c.code}
+        onClick={() => {
+          this.props.setAdvancedSearchResultIndex(i, c.id);
+          this.setState({selected: c.code});
+        }}
+      />
+    );
     let courseModal = null;
     if (active >= 0 && active < advancedSearchResults.length) {
       const selectedCourse = advancedSearchResults[active];
@@ -367,6 +370,7 @@ class ExplorationModal extends React.Component {
       />);
     });
     const explorationLoader = <i className="fa fa-spin fa-refresh" />;
+    const noCourseFound = <p>No courses have been found</p>;
     const content = (
       <div className={classNames('exploration-content', { loading: this.props.isFetching })}>
         <div
@@ -406,11 +410,12 @@ class ExplorationModal extends React.Component {
             </SelectedFilterSection>
           </div>
           <div className="col-5-16 exp-search-results">
-            <div id="exp-search-list" style={{height: "100%"}}>
+            <div id="exp-search-list" style={{height: "calc(100% - 20px)"}}>
               { numSearchResults }
-              { this.state.didSearch && (searchResults.length ? searchResults : <p>No courses have been found</p>)}
-              {this.props.isFetching
-                ? <div className="exp-search-list-content">{ explorationLoader }</div> : null}
+              { this.state.didSearch && (!this.props.isFetching ?
+                (searchResults.length ? searchResults : noCourseFound) : null)}
+              { this.props.isFetching
+                ? <div className="exp-search-list-content">{explorationLoader}</div> : null}
             </div>
           </div>
           { filters }
