@@ -95,10 +95,10 @@ Filter.propTypes = {
 
 // eslint-disable-next-line react/prop-types
 export const SelectedFilter = ({ name, remove }) => (
-  <h6>
-    <i className="fa fa-times" onClick={() => remove()} />
+  <div className="selected-filter">
     <span>{ name }</span>
-  </h6>
+    <i className="fa fa-times" onClick={() => remove()} />
+  </div>
 );
 
 SelectedFilter.propTypes = {
@@ -107,7 +107,7 @@ SelectedFilter.propTypes = {
 };
 
 // eslint-disable-next-line react/prop-types
-export const SelectedFilterSection = ({ name, toggle, children }) => (
+export const SelectedFilterSection = ({ name, toggle, children, type, removeAll }) => (
   <div className="exp-filter-section open">
     <h3 className="exp-header">
       <span>{ name.substring(0, name.length - 1) } Filter</span>
@@ -115,8 +115,15 @@ export const SelectedFilterSection = ({ name, toggle, children }) => (
         className="fa fa-plus"
         onClick={toggle}
       />
+      <i className="clear-all">
+        <div onClick={removeAll}>Clear All</div>
+      </i>
     </h3>
-    { children.length > 0 ? children : <h6 className="none-selected">None Selected</h6> }
+    {children.length > 0 ? 
+      <div className={type === "times" ? "selected-filters-times" : "selected-filters-other"}>{children}</div> 
+      :
+      <h6 className="none-selected">None Selected</h6>
+    }
   </div>
 );
 

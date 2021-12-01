@@ -104,7 +104,6 @@ const UserAcquisitionModal = () => {
           <span className="h6 or-separator--text">or</span>
           <hr />
         </div>
-
         <button
           className="btn abnb-btn secondary"
           onClick={() => {

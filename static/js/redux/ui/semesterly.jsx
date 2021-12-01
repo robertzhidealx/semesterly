@@ -184,7 +184,7 @@ class Semesterly extends React.Component {
             {cal}
             <footer className="footer navbar no-print">
               <p className="data-last-updated no-print">Data last
-                updated: { this.props.dataLastUpdated && this.props.dataLastUpdated.length && this.props.dataLastUpdated !== 'null' ? this.toLocalDate() : null }</p>
+                updated: {this.props.dataLastUpdated && this.props.dataLastUpdated.length && this.props.dataLastUpdated !== 'null' ? this.toLocalDate() : null}</p>
               <ul className="nav nav-pills no-print">
                 <li className="footer-button" role="presentation">
                   <a href="/termsofservice">Terms</a>
@@ -211,7 +211,7 @@ class Semesterly extends React.Component {
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://discord.gg/txYbphsAV7"
-                    // TODO: add discord logo correctly
+                  // TODO: add discord logo correctly
                   >
                     <i className="fab fa-discord" />
                     Forum

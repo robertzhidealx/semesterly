@@ -59,7 +59,7 @@ class Student(models.Model):
     first_name = models.CharField(max_length=255, default='', null=True)
     last_name = models.CharField(max_length=255, default='', null=True)
     disabilities = models.BooleanField(null=True, default=False)
-
+    
     def __str__(self):
         return "{0}".format(self.jhed)
 
@@ -86,14 +86,16 @@ class Student(models.Model):
         return credentials is not None and (not credentials.invalid)
 
     def get_google_credentials(self):
-        social_user = self.user.social_auth.filter(provider='google-oauth2').first()
+        social_user = self.user.social_auth.filter(
+            provider='google-oauth2').first()
         if social_user is None:
             return None
         access_token = social_user.extra_data["access_token"]
         refresh_token = social_user.extra_data.get("refresh_token")
         expires_at = social_user.extra_data["expires"]
         return GoogleCredentials(access_token, get_secret('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY'),
-                                 get_secret('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'), refresh_token,
+                                 get_secret(
+                                     'SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET'), refresh_token,
                                  expires_at,
                                  "https://accounts.google.com/o/oauth2/token", 'my-user-agent/1.0')
 
@@ -114,7 +116,8 @@ class Reaction(models.Model):
         ('HARD', 'HARD'),
         ('EASY', 'EASY'),
         ('INTERESTING', 'INTERESTING'))
-    student = models.ForeignKey('student.Student', on_delete=models.deletion.CASCADE)
+    student = models.ForeignKey(
+        'student.Student', on_delete=models.deletion.CASCADE)
     course = models.ManyToManyField(timetable_models.Course)
     title = models.CharField(max_length=50, choices=REACTION_CHOICES)
     time_created = models.DateTimeField(auto_now_add=True)
@@ -155,7 +158,9 @@ class RegistrationToken(models.Model):
     auth = models.TextField(default='')
     p256dh = models.TextField(default='')
     endpoint = models.TextField(default='')
-    student = models.ForeignKey(Student, null=True, default=None, on_delete=models.deletion.CASCADE)
+    student = models.ForeignKey(
+        Student, null=True, default=None, on_delete=models.deletion.CASCADE)
+
 
 class PilotOffering(models.Model):
     sections = models.ManyToManyField(timetable_models.Section)
@@ -167,8 +172,10 @@ class PilotOffering(models.Model):
     size = models.IntegerField(default=10)
     enrolment = models.IntegerField(default=0)
     waitlist = models.IntegerField(default=0)
-    students = models.ManyToManyField(Student, related_name="enrolled_students")
-    wait_students = models.ManyToManyField(Student, related_name="waitlisted_students")
+    students = models.ManyToManyField(
+        Student, related_name="enrolled_students")
+    wait_students = models.ManyToManyField(
+        Student, related_name="waitlisted_students")
     course_name = models.CharField(max_length=100, null=True)
 
     def __str__(self):

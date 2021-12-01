@@ -15,6 +15,7 @@ GNU General Public License for more details.
 import PropTypes from 'prop-types';
 import React from 'react';
 import InputRange from 'react-input-range';
+import searchResults from '../reducers/search_results_reducer';
 
 class TimeSelector extends React.Component {
 
@@ -26,10 +27,6 @@ class TimeSelector extends React.Component {
   render() {
     const { day, value, onChange, onChangeComplete, remove } = this.props;
     return (<div className="time-selector">
-      <span className="time-selector-day"> <i
-        className="fa fa-times"
-        onClick={() => remove(day)}
-      />{ day.slice(0, 3) } </span>
       <InputRange
         day={day}
         maxValue={24}
@@ -38,6 +35,10 @@ class TimeSelector extends React.Component {
         onChange={onChange}
         onChangeComplete={onChangeComplete}
       />
+      <div className="time-selector-day">
+        <div>{day.slice(0, 3)}</div>
+        <i className="fa fa-times" onClick={() => remove(day)}/>
+      </div>
     </div>);
   }
 }
